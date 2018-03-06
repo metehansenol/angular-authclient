@@ -10,6 +10,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { UsersComponent } from './users/users.component';
 import { AppHomeComponent } from './app-home.component';
+import { UserService } from './services/user.sevice';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { AppHomeComponent } from './app-home.component';
     AppRoutingModule /*this should be last*/
   ],
   providers: [
+    UserService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: UsersFakeBackendInterceptor,
