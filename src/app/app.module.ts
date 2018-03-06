@@ -1,21 +1,35 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+
+import { UsersFakeBackendInterceptor, usersFakeBackendProvider } from './users/users.fakebackend';
 
 import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
 import { UsersComponent } from './users/users.component';
+import { AppHomeComponent } from './app-home.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    AppHomeComponent,
     UsersComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule /*this should be last*/
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: UsersFakeBackendInterceptor,
+      multi: true,
+    },
+    /* providers used to create fake backend */
+    usersFakeBackendProvider
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
