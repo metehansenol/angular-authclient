@@ -8,18 +8,24 @@ import { UsersFakeBackendInterceptor, usersFakeBackendProvider } from './users/u
 import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
-import { UsersComponent } from './users/users.component';
 import { AppHomeComponent } from './app-home.component';
+
+import { UsersComponent } from './users/users.component';
+import { CreateUserComponent } from './users/create-user.component';
+
 import { UserService } from './services/user.sevice';
 
 @NgModule({
   declarations: [
     AppComponent,
     AppHomeComponent,
-    UsersComponent
+    UsersComponent,
+    CreateUserComponent
   ],
   imports: [
     BrowserModule,
+    FormsModule,
+    HttpClientModule,
     AppRoutingModule /*this should be last*/
   ],
   providers: [
