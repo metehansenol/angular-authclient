@@ -21,6 +21,8 @@ import { UserService } from '../services/user.sevice';
         <td>{{user.emailAddress}}</td>
       </tr>
     </table>
+    <br />
+    <button routerLink="/users/create">Create User</button>
   `
 })
 export class UsersComponent implements OnInit {

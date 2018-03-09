@@ -8,17 +8,19 @@ import { UserService } from '../services/user.sevice';
   selector: 'app-create-user',
   template: `<h1>Create New User</h1>
     <hr />
-    <form>
+    <form #form="ngForm" role="form" novalidate>
     <fieldset>
       <legend>New User Info</legend>
-      <div><label>Username:</label><input [(ngModel)]="username" type="text" name="usernameInput" /></div>
-      <div><label>Password:</label><input [(ngModel)]="password" type="password" name="passwordInput" /></div>
-      <div><label>Password (retype):</label><input [(ngModel)]="passwordConfirm" type="password" name="passwordConfirmInput" /></div>
-      <div><label>Email Address:</label><input [(ngModel)]="emailAddress" type="text" name="emailAddressInput" /></div>
+      <div><label>Username:</label><input [(ngModel)]="username" type="text" name="usernameInput" required /></div>
+      <div><label>Password:</label><input [(ngModel)]="password" type="password" name="passwordInput" required /></div>
+      <div><label>Password (retype):</label><input [(ngModel)]="passwordConfirm" type="password"
+        name="passwordConfirmInput" required /></div>
+      <div><label>Email Address:</label><input [(ngModel)]="emailAddress" type="email" name="emailAddressInput" required /></div>
       <div><label>Full Name:</label><input [(ngModel)]="fullName" type="text" name="fullNameInput" /></div>
-      <div><button (click)="createUser()">Create</button></div>
     </fieldset>
     </form>
+    <br />
+    <div><button (click)="createUser()" [disabled]="!form.valid">Create</button></div>
   `
 })
 export class CreateUserComponent {

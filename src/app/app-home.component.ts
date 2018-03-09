@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
   selector: 'app-home',
   template: `<h1>Angular AuthClient Example</h1>
     <hr />
-    <button (click)="doAnything()">Users</button>
+    <button routerLink="/users">Users</button>
   `
 })
 export class AppHomeComponent {
