@@ -58,10 +58,9 @@ export class UsersFakeBackendInterceptor implements HttpInterceptor {
       const targetUser = matchedUsers.length ? matchedUsers[0] : null;
 
       // update user
-      targetUser.name = sourceUser.name;
-      targetUser.unit = sourceUser.unit;
-      targetUser.price = sourceUser.price;
-      targetUser.currency = sourceUser.currency;
+      targetUser.username = sourceUser.username;
+      targetUser.fullName = sourceUser.fullName;
+      targetUser.emailAddress = sourceUser.emailAddress;
 
       localStorage.setItem('users', JSON.stringify(users));
 
