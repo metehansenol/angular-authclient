@@ -40,7 +40,7 @@ export class CreateUserComponent {
 
   createUser() {
     if (this.password !== this.passwordConfirm) {
-      this.errorMessage = 'Passwords does not match. Please retype your password below.'
+      this.errorMessage = 'Passwords does not match. Please retype your password below.';
       return;
     }
 
