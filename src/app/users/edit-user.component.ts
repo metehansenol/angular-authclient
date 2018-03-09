@@ -22,6 +22,7 @@ import { UserService } from '../services/user.sevice';
     <br />
     <div>
       <button (click)="saveUser()" [disabled]="!form.valid">Save</button>
+      <button (click)="deleteUser()">Delete</button>
       <button routerLink="/users">Cancel</button>
     </div>
     <br />
@@ -45,6 +46,11 @@ export class EditUserComponent implements OnInit {
 
   saveUser() {
     this.userService.update(this.user)
+      .subscribe(() => this.router.navigateByUrl('/users'));
+  }
+
+  deleteUser() {
+    this.route.params.mergeMap(routeParams => this.userService.delete(routeParams.id))
       .subscribe(() => this.router.navigateByUrl('/users'));
   }
 }
