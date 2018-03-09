@@ -11,3 +11,8 @@ fieldset div label {
   display: inline-block;
   width: 150px;
 }
+
+.err-msg {
+  color: red;
+  font-weight: bold;
+}

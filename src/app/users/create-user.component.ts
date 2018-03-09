@@ -21,9 +21,13 @@ import { UserService } from '../services/user.sevice';
     </form>
     <br />
     <div><button (click)="createUser()" [disabled]="!form.valid">Create</button></div>
+    <br />
+    <div class="err-msg">{{errorMessage}}</div>
   `
 })
 export class CreateUserComponent {
+  errorMessage: string;
+
   username: string;
   password: string;
   passwordConfirm: string;
@@ -35,6 +39,11 @@ export class CreateUserComponent {
     private router: Router) {}
 
   createUser() {
+    if (this.password !== this.passwordConfirm) {
+      this.errorMessage = 'Passwords does not match. Please retype your password below.'
+      return;
+    }
+
     this.userService.create(
         this.username,
         this.password,
