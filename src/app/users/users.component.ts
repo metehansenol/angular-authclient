@@ -13,12 +13,14 @@ import { UserService } from '../services/user.sevice';
         <th>Username</th>
         <th>Full Name</th>
         <th>Email Address</th>
+        <th>&nbsp;</th>
       </tr>
       <tr *ngFor="let user of users">
         <td>{{user.id}}</td>
         <td>{{user.username}}</td>
         <td>{{user.fullName}}</td>
         <td>{{user.emailAddress}}</td>
+        <td><button [routerLink]="['/users/edit', user.id]">Edit</button></td>
       </tr>
     </table>
     <br />

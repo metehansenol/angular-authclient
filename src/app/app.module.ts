@@ -12,6 +12,7 @@ import { AppHomeComponent } from './app-home.component';
 
 import { UsersComponent } from './users/users.component';
 import { CreateUserComponent } from './users/create-user.component';
+import { EditUserComponent } from './users/edit-user.component';
 
 import { UserService } from './services/user.sevice';
 
@@ -20,7 +21,8 @@ import { UserService } from './services/user.sevice';
     AppComponent,
     AppHomeComponent,
     UsersComponent,
-    CreateUserComponent
+    CreateUserComponent,
+    EditUserComponent
   ],
   imports: [
     BrowserModule,
