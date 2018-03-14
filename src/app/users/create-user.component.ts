@@ -20,7 +20,10 @@ import { UserService } from '../services/user.sevice';
     </fieldset>
     </form>
     <br />
-    <div><button (click)="createUser()" [disabled]="!form.valid">Create</button></div>
+    <div>
+      <button (click)="createUser()" [disabled]="!form.valid">Create</button>
+      <button routerLink="/users">Cancel</button>
+    </div>
     <br />
     <div class="err-msg">{{errorMessage}}</div>
   `
