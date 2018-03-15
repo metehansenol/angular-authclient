@@ -13,6 +13,30 @@ export class AuthFakeBackendInterceptor implements HttpInterceptor {
     // array in local storage for registered users
     const users: any[] = JSON.parse(localStorage.getItem('users')) || [];
 
+    // authenticate
+    if (request.url.endsWith('/api/token') && request.method === 'POST') {
+      // find if any user matches login credentials
+      const filteredUsers = users.filter(user => {
+        return user.username === request.body.username && user.password === request.body.password;
+      });
+
+      if (filteredUsers.length) {
+        // if login details are valid return 200 OK with token details and fake jwt token
+        const user = filteredUsers[0];
+        const body = {
+          token: 'fake-jwt-token',
+          expires_in: 60,
+          token_type: 'Bearer',
+          refresh_token: 'fake-refresh-token'
+        };
+
+        return Observable.of(new HttpResponse({ status: 200, body: body }));
+      } else {
+        // else return 400 bad request
+        return Observable.throw('invalid_grant');
+      }
+    }
+
     // get all users
     if (request.url.endsWith('/api/users') && request.method === 'GET') {
       return Observable.of(new HttpResponse({ status: 200, body: users }));
