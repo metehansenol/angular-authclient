@@ -3,6 +3,7 @@ import { HTTP_INTERCEPTORS, HttpInterceptor, HttpRequest, HttpResponse, HttpHand
 
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
+import 'rxjs/add/observable/throw';
 
 @Injectable()
 export class AuthFakeBackendInterceptor implements HttpInterceptor {
