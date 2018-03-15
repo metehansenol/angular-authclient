@@ -48,14 +48,18 @@ export class AuthFakeBackendInterceptor implements HttpInterceptor {
 
     // get user by id
     if (request.url.match(/\/api\/users\/\d+$/) && request.method === 'GET') {
-      // find user by id in users array
-      const urlParts = request.url.split('/');
-      const id = parseInt(urlParts[urlParts.length - 1], 10);
-      const matchedUsers = users.filter(u => u.id === id);
-      const user = matchedUsers.length ? matchedUsers[0] : null;
+      if (request.headers.get('Authorization') === 'Bearer fake-jwt-token') {
+        // find user by id in users array
+        const urlParts = request.url.split('/');
+        const id = parseInt(urlParts[urlParts.length - 1], 10);
+        const matchedUsers = users.filter(u => u.id === id);
+        const user = matchedUsers.length ? matchedUsers[0] : null;
 
-      // respond 200 OK
-      return Observable.of(new HttpResponse({ status: 200, body: user }));
+        // respond 200 OK
+        return Observable.of(new HttpResponse({ status: 200, body: user }));
+      } else {
+        return Observable.throw('Unauthorized');
+      }
     }
 
     // create user
