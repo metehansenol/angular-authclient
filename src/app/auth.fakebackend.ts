@@ -64,16 +64,20 @@ export class AuthFakeBackendInterceptor implements HttpInterceptor {
 
     // create user
     if (request.url.endsWith('/api/users') && request.method === 'POST') {
-      // get new user object from post body
-      const newUser = JSON.parse(request.body);
+      if (request.headers.get('Authorization') === 'Bearer fake-jwt-token') {
+        // get new user object from post body
+        const newUser = JSON.parse(request.body);
 
-      // save new user
-      newUser.id = users.length + 1;
-      users.push(newUser);
-      localStorage.setItem('users', JSON.stringify(users));
+        // save new user
+        newUser.id = users.length + 1;
+        users.push(newUser);
+        localStorage.setItem('users', JSON.stringify(users));
 
-      // respond 201 Created
-      return Observable.of(new HttpResponse({ status: 201, body: newUser }));
+        // respond 201 Created
+        return Observable.of(new HttpResponse({ status: 201, body: newUser }));
+      } else {
+        return Observable.throw('Unauthorized');
+      }
     }
 
     // update user
