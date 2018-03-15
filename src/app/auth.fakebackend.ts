@@ -4,10 +4,8 @@ import { HTTP_INTERCEPTORS, HttpInterceptor, HttpRequest, HttpResponse, HttpHand
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 
-import { User } from '../models/user';
-
 @Injectable()
-export class UsersFakeBackendInterceptor implements HttpInterceptor {
+export class AuthFakeBackendInterceptor implements HttpInterceptor {
 
   constructor() { }
 
@@ -93,8 +91,8 @@ export class UsersFakeBackendInterceptor implements HttpInterceptor {
   }
 }
 
-export let usersFakeBackendProvider = {
+export let authFakeBackendProvider = {
   provide: HTTP_INTERCEPTORS,
-  useClass: UsersFakeBackendInterceptor,
+  useClass: AuthFakeBackendInterceptor,
   multi: true
 };

@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
-import { UsersFakeBackendInterceptor, usersFakeBackendProvider } from './users/users.fakebackend';
+import { AuthFakeBackendInterceptor, authFakeBackendProvider } from './auth.fakebackend';
 
 import { AppRoutingModule } from './app-routing.module';
 
@@ -34,11 +34,11 @@ import { UserService } from './services/user.sevice';
     UserService,
     {
       provide: HTTP_INTERCEPTORS,
-      useClass: UsersFakeBackendInterceptor,
+      useClass: AuthFakeBackendInterceptor,
       multi: true,
     },
     /* providers used to create fake backend */
-    usersFakeBackendProvider
+    authFakeBackendProvider
   ],
   bootstrap: [AppComponent]
 })
