@@ -82,44 +82,52 @@ export class AuthFakeBackendInterceptor implements HttpInterceptor {
 
     // update user
     if (request.url.match(/\/api\/users\/\d+$/) && request.method === 'PUT') {
-      // get user object from post body
-      const sourceUser = JSON.parse(request.body);
+      if (request.headers.get('Authorization') === 'Bearer fake-jwt-token') {
+        // get user object from post body
+        const sourceUser = JSON.parse(request.body);
 
-      // find target user by id in users array
-      const urlParts = request.url.split('/');
-      const id = parseInt(urlParts[urlParts.length - 1], 10);
-      const matchedUsers = users.filter(u => u.id === id);
-      const targetUser = matchedUsers.length ? matchedUsers[0] : null;
+        // find target user by id in users array
+        const urlParts = request.url.split('/');
+        const id = parseInt(urlParts[urlParts.length - 1], 10);
+        const matchedUsers = users.filter(u => u.id === id);
+        const targetUser = matchedUsers.length ? matchedUsers[0] : null;
 
-      // update user
-      targetUser.username = sourceUser.username;
-      targetUser.fullName = sourceUser.fullName;
-      targetUser.emailAddress = sourceUser.emailAddress;
+        // update user
+        targetUser.username = sourceUser.username;
+        targetUser.fullName = sourceUser.fullName;
+        targetUser.emailAddress = sourceUser.emailAddress;
 
-      localStorage.setItem('users', JSON.stringify(users));
+        localStorage.setItem('users', JSON.stringify(users));
 
-      // respond 200 OK with updated user
-      return Observable.of(new HttpResponse({ status: 200, body: targetUser }));
+        // respond 200 OK with updated user
+        return Observable.of(new HttpResponse({ status: 200, body: targetUser }));
+      } else {
+        return Observable.throw('Unauthorized');
+      }
     }
 
     // delete user
     if (request.url.match(/\/api\/users\/\d+$/) && request.method === 'DELETE') {
-      // find user by id in users array
-      const urlParts = request.url.split('/');
-      const id = parseInt(urlParts[urlParts.length - 1], 10);
+      if (request.headers.get('Authorization') === 'Bearer fake-jwt-token') {
+        // find user by id in users array
+        const urlParts = request.url.split('/');
+        const id = parseInt(urlParts[urlParts.length - 1], 10);
 
-      for (let i = 0; i < users.length; i++) {
-        const user = users[i];
-        if (user.id === id) {
-          // delete user
-          users.splice(i, 1);
-          localStorage.setItem('users', JSON.stringify(users));
-          break;
+        for (let i = 0; i < users.length; i++) {
+          const user = users[i];
+          if (user.id === id) {
+            // delete user
+            users.splice(i, 1);
+            localStorage.setItem('users', JSON.stringify(users));
+            break;
+          }
         }
-      }
 
-      // respond 200 OK
-      return Observable.of(new HttpResponse({ status: 200 }));
+        // respond 200 OK
+        return Observable.of(new HttpResponse({ status: 200 }));
+      } else {
+        return Observable.throw('Unauthorized');
+      }
     }
 
     return next.handle(request);
