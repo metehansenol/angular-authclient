@@ -38,11 +38,12 @@ export class LoginComponent {
     private router: Router) {}
 
   login() {
-    const authBody = new URLSearchParams();
-    authBody.set('username', this.username);
-    authBody.set('password', this.password);
+    const authBody = {
+      'username': this.username,
+      'password': this.password
+    };
 
-    this.http.post(this.tokenEndpoint, authBody.toString())
+    this.http.post(this.tokenEndpoint, authBody)
     .subscribe(response => {
       const token = response as TokenResponse;
       localStorage.setItem('access_token', token.access_token);
@@ -50,10 +51,10 @@ export class LoginComponent {
       localStorage.setItem('expires_in', token.expires_in.toString());
     },
     (errorResponse: HttpErrorResponse) => {
-      if (errorResponse.status === 400 && errorResponse.error.error === 'invalid_grant') {
+      if (errorResponse.status === 400 && errorResponse.error === 'invalid_grant') {
         this.errorMessage = 'Geçersiz Kullanıcı Adı yada Şifre';
       } else {
-        this.errorMessage = errorResponse.error;
+        this.errorMessage = errorResponse.toString();
       }
     },
     () => this.router.navigateByUrl('/'));

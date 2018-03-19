@@ -34,7 +34,7 @@ export class AuthFakeBackendInterceptor implements HttpInterceptor {
         return Observable.of(new HttpResponse({ status: 200, body: body }));
       } else {
         // else return 400 bad request
-        return Observable.throw('invalid_grant');
+        return Observable.throw('Username or password is incorrect');
       }
     }
 
@@ -43,6 +43,7 @@ export class AuthFakeBackendInterceptor implements HttpInterceptor {
       if (request.headers.get('Authorization') === 'Bearer fake-jwt-token') {
         return Observable.of(new HttpResponse({ status: 200, body: users }));
       } else {
+        // else return 401 Unauthorized
         return Observable.throw('Unauthorized');
       }
     }
@@ -59,6 +60,7 @@ export class AuthFakeBackendInterceptor implements HttpInterceptor {
         // respond 200 OK
         return Observable.of(new HttpResponse({ status: 200, body: user }));
       } else {
+        // else return 401 Unauthorized
         return Observable.throw('Unauthorized');
       }
     }
@@ -77,6 +79,7 @@ export class AuthFakeBackendInterceptor implements HttpInterceptor {
         // respond 201 Created
         return Observable.of(new HttpResponse({ status: 201, body: newUser }));
       } else {
+        // else return 401 Unauthorized
         return Observable.throw('Unauthorized');
       }
     }
@@ -103,6 +106,7 @@ export class AuthFakeBackendInterceptor implements HttpInterceptor {
         // respond 200 OK with updated user
         return Observable.of(new HttpResponse({ status: 200, body: targetUser }));
       } else {
+        // else return 401 Unauthorized
         return Observable.throw('Unauthorized');
       }
     }
@@ -127,6 +131,7 @@ export class AuthFakeBackendInterceptor implements HttpInterceptor {
         // respond 200 OK
         return Observable.of(new HttpResponse({ status: 200 }));
       } else {
+        // else return 401 Unauthorized
         return Observable.throw('Unauthorized');
       }
     }

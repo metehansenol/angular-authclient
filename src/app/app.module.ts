@@ -9,6 +9,7 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
 import { AppHomeComponent } from './app-home.component';
+import { LoginComponent } from './login/login.component';
 
 import { UsersComponent } from './users/users.component';
 import { CreateUserComponent } from './users/create-user.component';
@@ -20,6 +21,7 @@ import { UserService } from './services/user.sevice';
   declarations: [
     AppComponent,
     AppHomeComponent,
+    LoginComponent,
     UsersComponent,
     CreateUserComponent,
     EditUserComponent
