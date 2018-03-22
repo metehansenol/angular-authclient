@@ -61,7 +61,7 @@ export class AuthService {
 
   refreshToken(): Observable<boolean> {
     const authBody = new URLSearchParams();
-    authBody.set('refresh_token', this.token.refresh_token);
+    authBody.set('refresh_token', localStorage.getItem('refresh_token'));
     authBody.set('grant_type', 'refresh_token');
 
     const options = {
