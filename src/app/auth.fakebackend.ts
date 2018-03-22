@@ -25,7 +25,8 @@ export class AuthFakeBackendInterceptor implements HttpInterceptor {
         // if login details are valid return 200 OK with token details and fake jwt token
         const user = filteredUsers[0];
         const body = {
-          access_token: 'fake-jwt-token',
+          // tslint:disable-next-line:max-line-length
+          access_token: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJtZXRlaGFuc2Vub2wiLCJpYXQiOjE1MjE2OTc0MjQsImV4cCI6NDEwOTM3NzQyNCwiYXVkIjoiaHR0cDovL2xvY2FsaG9zdDo0MjAwIiwic3ViIjoibWV0ZWhhbnNlbm9sQGdtYWlsLmNvbSIsIkdpdmVuTmFtZSI6Ik1ldGVoYW4iLCJTdXJuYW1lIjoiU2Vub2wiLCJFbWFpbCI6Im1ldGVoYW5zZW5vbEBnbWFpbC5jb20iLCJSb2xlIjoiQXV0aG9yIn0.LKsIBdCe9x2NWL9RwEODYC9Wj24hnsmk2wYeGgDqVgw',
           expires_in: 60,
           token_type: 'Bearer',
           refresh_token: 'fake-refresh-token'
