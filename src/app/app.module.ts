@@ -17,6 +17,7 @@ import { EditUserComponent } from './users/edit-user.component';
 
 import { UserService } from './services/user.sevice';
 import { AuthService } from './services/auth.service';
+import { AuthGuard } from './services/auth-guard';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { AuthService } from './services/auth.service';
     AppRoutingModule /*this should be last*/
   ],
   providers: [
+    AuthGuard,
     UserService,
     AuthService,
     {

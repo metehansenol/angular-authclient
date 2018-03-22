@@ -5,9 +5,9 @@ import { TokenResponse } from '../models/tokenResponse';
 import * as jwt_decode from 'jwt-decode';
 
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/of';
+import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/mergeMap';
+import 'rxjs/add/observable/of';
 
 import { environment } from '../../environments/environment';
 
@@ -86,7 +86,7 @@ export class AuthService {
   }
 
   get(url: string, params?: any): Observable<any> {
-    return this.getAuthHeader().flatMap(authHeader => {
+    return this.getAuthHeader().map(authHeader => {
       const options = {
         headers: authHeader,
         params: params
@@ -96,7 +96,7 @@ export class AuthService {
   }
 
   post(url: string, body?: any): Observable<any> {
-    return this.getAuthHeader().flatMap(authHeader => {
+    return this.getAuthHeader().map(authHeader => {
       const options = {
         headers: authHeader
       };
@@ -105,7 +105,7 @@ export class AuthService {
   }
 
   put(url: string, body?: any): Observable<any> {
-    return this.getAuthHeader().flatMap(authHeader => {
+    return this.getAuthHeader().map(authHeader => {
       const options = {
         headers: authHeader
       };
@@ -114,7 +114,7 @@ export class AuthService {
   }
 
   delete(url: string): Observable<any> {
-    return this.getAuthHeader().flatMap(authHeader => {
+    return this.getAuthHeader().map(authHeader => {
       const options = {
         headers: authHeader
       };
