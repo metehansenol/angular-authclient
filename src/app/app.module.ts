@@ -16,6 +16,7 @@ import { CreateUserComponent } from './users/create-user.component';
 import { EditUserComponent } from './users/edit-user.component';
 
 import { UserService } from './services/user.sevice';
+import { AuthService } from './services/auth.service';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { UserService } from './services/user.sevice';
   ],
   providers: [
     UserService,
+    AuthService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthFakeBackendInterceptor,

@@ -4,27 +4,28 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 
+import { AuthService } from './auth.service';
 import { User } from '../models/user';
 
 @Injectable()
 export class UserService {
   private userApiUrl = 'http://localhost:4200/api/users';
 
-  constructor(private http: HttpClient) {}
+  constructor(private auth: AuthService) {}
 
   getAll(): Observable<User[]> {
-    return this.http.get(this.userApiUrl)
+    return this.auth.get(this.userApiUrl)
       .map(response => response as User[]);
   }
 
   getById(id: number): Observable<User> {
     const url = `${this.userApiUrl}/${id}`;
-    return this.http.get(url)
+    return this.auth.get(url)
       .map(response => response as User);
   }
 
   create(username: string, password: string, fullName: string, emailAddress: string): Observable<User> {
-    return this.http.post(this.userApiUrl, JSON.stringify({
+    return this.auth.post(this.userApiUrl, JSON.stringify({
       username: username,
       password: password,
       fullName: fullName,
@@ -34,12 +35,12 @@ export class UserService {
 
   update(user: User): Observable<User> {
     const url = `${this.userApiUrl}/${user.id}`;
-    return this.http.put(url, JSON.stringify(user))
+    return this.auth.put(url, JSON.stringify(user))
       .map(response => response as User);
   }
 
   delete(id: number): Observable<any> {
     const url = `${this.userApiUrl}/${id}`;
-    return this.http.delete(url);
+    return this.auth.delete(url);
   }
 }
