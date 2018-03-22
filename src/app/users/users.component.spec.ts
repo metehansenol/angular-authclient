@@ -1,24 +1,32 @@
 import { TestBed, async } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { AppComponent } from './app.component';
+import { HttpClientModule } from '@angular/common/http';
+import { UsersComponent } from './users.component';
+import { UserService } from '../services/user.sevice';
+import { AuthService } from '../services/auth.service';
 
-describe('AppComponent', () => {
+describe('UsersComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        AppComponent
+        UsersComponent
       ],
       imports: [
+        HttpClientModule,
         RouterTestingModule
+      ],
+      providers: [
+        UserService,
+        AuthService
       ]
     }).compileComponents();
   }));
 
   it('should create the app', async(() => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.debugElement.componentInstance;
-    expect(app).toBeTruthy();
+    const fixture = TestBed.createComponent(UsersComponent);
+    const users = fixture.debugElement.componentInstance;
+    expect(users).toBeTruthy();
   }));
 
   /*

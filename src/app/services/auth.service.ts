@@ -7,6 +7,7 @@ import * as jwt_decode from 'jwt-decode';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/catch';
+import 'rxjs/add/operator/mergeMap';
 
 import { environment } from '../../environments/environment';
 
