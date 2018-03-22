@@ -7,6 +7,8 @@ import 'rxjs/add/observable/throw';
 
 @Injectable()
 export class AuthFakeBackendInterceptor implements HttpInterceptor {
+  // tslint:disable-next-line:max-line-length
+  private jwtToken = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJtZXRlaGFuc2Vub2wiLCJpYXQiOjE1MjE2OTc0MjQsImV4cCI6NDEwOTM3NzQyNCwiYXVkIjoiaHR0cDovL2xvY2FsaG9zdDo0MjAwIiwic3ViIjoibWV0ZWhhbnNlbm9sQGdtYWlsLmNvbSIsIkdpdmVuTmFtZSI6Ik1ldGVoYW4iLCJTdXJuYW1lIjoiU2Vub2wiLCJFbWFpbCI6Im1ldGVoYW5zZW5vbEBnbWFpbC5jb20iLCJSb2xlIjoiQXV0aG9yIn0.LKsIBdCe9x2NWL9RwEODYC9Wj24hnsmk2wYeGgDqVgw';
 
   constructor() { }
 
@@ -26,7 +28,7 @@ export class AuthFakeBackendInterceptor implements HttpInterceptor {
         const user = filteredUsers[0];
         const body = {
           // tslint:disable-next-line:max-line-length
-          access_token: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJtZXRlaGFuc2Vub2wiLCJpYXQiOjE1MjE2OTc0MjQsImV4cCI6NDEwOTM3NzQyNCwiYXVkIjoiaHR0cDovL2xvY2FsaG9zdDo0MjAwIiwic3ViIjoibWV0ZWhhbnNlbm9sQGdtYWlsLmNvbSIsIkdpdmVuTmFtZSI6Ik1ldGVoYW4iLCJTdXJuYW1lIjoiU2Vub2wiLCJFbWFpbCI6Im1ldGVoYW5zZW5vbEBnbWFpbC5jb20iLCJSb2xlIjoiQXV0aG9yIn0.LKsIBdCe9x2NWL9RwEODYC9Wj24hnsmk2wYeGgDqVgw',
+          access_token: this.jwtToken,
           expires_in: 60,
           token_type: 'Bearer',
           refresh_token: 'fake-refresh-token'
@@ -41,7 +43,7 @@ export class AuthFakeBackendInterceptor implements HttpInterceptor {
 
     // get all users
     if (request.url.endsWith('/api/users') && request.method === 'GET') {
-      if (request.headers.get('Authorization') === 'Bearer fake-jwt-token') {
+      if (request.headers.get('Authorization') === `Bearer ${this.jwtToken}`) {
         return Observable.of(new HttpResponse({ status: 200, body: users }));
       } else {
         // else return 401 Unauthorized
@@ -51,7 +53,7 @@ export class AuthFakeBackendInterceptor implements HttpInterceptor {
 
     // get user by id
     if (request.url.match(/\/api\/users\/\d+$/) && request.method === 'GET') {
-      if (request.headers.get('Authorization') === 'Bearer fake-jwt-token') {
+      if (request.headers.get('Authorization') === `Bearer ${this.jwtToken}`) {
         // find user by id in users array
         const urlParts = request.url.split('/');
         const id = parseInt(urlParts[urlParts.length - 1], 10);
@@ -68,7 +70,7 @@ export class AuthFakeBackendInterceptor implements HttpInterceptor {
 
     // create user
     if (request.url.endsWith('/api/users') && request.method === 'POST') {
-      if (request.headers.get('Authorization') === 'Bearer fake-jwt-token') {
+      if (request.headers.get('Authorization') === `Bearer ${this.jwtToken}`) {
         // get new user object from post body
         const newUser = JSON.parse(request.body);
 
@@ -87,7 +89,7 @@ export class AuthFakeBackendInterceptor implements HttpInterceptor {
 
     // update user
     if (request.url.match(/\/api\/users\/\d+$/) && request.method === 'PUT') {
-      if (request.headers.get('Authorization') === 'Bearer fake-jwt-token') {
+      if (request.headers.get('Authorization') === `Bearer ${this.jwtToken}`) {
         // get user object from post body
         const sourceUser = JSON.parse(request.body);
 
@@ -114,7 +116,7 @@ export class AuthFakeBackendInterceptor implements HttpInterceptor {
 
     // delete user
     if (request.url.match(/\/api\/users\/\d+$/) && request.method === 'DELETE') {
-      if (request.headers.get('Authorization') === 'Bearer fake-jwt-token') {
+      if (request.headers.get('Authorization') === `Bearer ${this.jwtToken}`) {
         // find user by id in users array
         const urlParts = request.url.split('/');
         const id = parseInt(urlParts[urlParts.length - 1], 10);
