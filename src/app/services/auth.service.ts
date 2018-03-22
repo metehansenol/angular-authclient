@@ -117,7 +117,7 @@ export class AuthService {
       const options = {
         headers: authHeader
       };
-      return this.http.delete(url);
+      return this.http.delete(url, options);
     });
   }
 }
